@@ -1,0 +1,17 @@
+{
+  "name": "StreepMap",
+  "version": "1.0.0",
+  "description": "StreetMap for A*",
+  "main": "app.js",
+  "scripts": {
+    "build": "watchify client/js/map.js -o client/js/bundle/bundle.js"
+  },
+  "author": "Fadi Bunni og Andreas",
+  "license": "ISC",
+  "dependencies": {
+    "browserify": "^13.1.0",
+    "express": "^4.14.0",
+    "nodemon": "^1.11.0",
+    "socket.io": "^1.7.2"
+  }
+}
