@@ -8,7 +8,10 @@ app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/client/index.html');
 });
 
-app.use('/client', express.static(path.join(__dirname + '/client')));
+
+app.use(express.static('client'));
+app.use(express.static(__dirname + '/styles'))
+//app.use('/static', express.static(__dirname + '/client'));
 
 const port = process.env.PORT || 2000;
 http.listen(port,function(){
