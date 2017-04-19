@@ -53,16 +53,45 @@ socket.on('connected', 'hey');
 // 	console.log(r.length);
 // }
 
-function setup() {
-  createCanvas(640, 480);
-}
+// function centerCanvas(canvas) {
+//   var x = (windowWidth - width) / 2;
+//   var y = (windowHeight - height) / 2;
+//   canvas.position(x, y);
+// }
 
-function draw() {
-  if (mouseIsPressed) {
-    fill(0);
-  } else {
-    fill(255);
-  }
-  ellipse(mouseX, mouseY, 80, 80);
-}
+// function setup() {
+//   createCanvas(640, 480);
+//   // centerCanvas(canvas);
+//   background(255, 0, 200);
+// }
+
+// function draw() {
+//   if (mouseIsPressed) {
+//     fill(0);
+//   } else {
+//     fill(255);
+//   }
+//   ellipse(mouseX, mouseY, 80, 80);
+
+// }
+
+var s = function(p) {
+
+  var x = 100;
+  var y = 100;
+
+  p.setup = function() {
+    p.createCanvas(700, 410);
+  };
+
+  p.draw = function() {
+    p.background(0);
+    p.fill(255);
+    p.rect(x,y,50,50);
+  };
+};
+
+var myp5 = new p5(s);
+
+console.log("heelllo");
 

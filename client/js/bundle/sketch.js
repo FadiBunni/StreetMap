@@ -54,27 +54,54 @@ socket.on('connected', 'hey');
 // 	console.log(r.length);
 // }
 
+// function centerCanvas(canvas) {
+//   var x = (windowWidth - width) / 2;
+//   var y = (windowHeight - height) / 2;
+//   canvas.position(x, y);
+// }
 
-function centerCanvas(canvas) {
-  var x = (windowWidth - width) / 2;
-  var y = (windowHeight - height) / 2;
-  canvas.position(x, y);
-}
+// function setup() {
+//   createcanvas((640,480););
+//   // centerCanvas(cava);
+//   background(255, 0, 200);
+// }
 
-function setup() {
-  var canvas = createCanvas(640, 480);
-  centerCanvas(canvas);
-  background(255, 0, 200);
-}
+// function draw() {
 
-function draw() {
-  if (mouseIsPressed) {
-    fill(0);
-  } else {
-    fill(255);
-  }
-  ellipse(mouseX, mouseY, 80, 80);
-}
+
+// }
+
+var s = function(p) {
+
+  var x = 100;
+  var y = 100;
+  var canvas;
+
+  function centerCanvas(canvas){
+    var x = (p.windowWidth - p.width) / 2;
+    var y = (p.windowHeight - p.height) / 2;
+    canvas.position(x, y);
+  };
+
+  p.setup = function() {
+    canvas = p.createCanvas(700,410);
+    centerCanvas(canvas);
+    p.background(255,0,200);
+  };
+
+  p.draw = function() {
+    if (p.mouseIsPressed) {
+      p.fill(0);
+    } else {
+      p.fill(255);
+    }
+    p.ellipse(p.mouseX, p.mouseY, 80, 80);
+  };
+};
+
+var myp5 = new p5(s);
+
+console.log("heelllo");
 
 
 },{}]},{},[1]);
