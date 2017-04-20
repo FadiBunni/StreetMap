@@ -8,10 +8,6 @@ app.get('/', function(req, res) {
 	res.sendFile(__dirname + '/client/index.html');
 });
 
-//app.use(express.static('client'));
-// app.use(express.static(__dirname + '/styles'))
-//app.use('/static', express.static(__dirname + '/client'));
-
 app.use(express.static(path.join(__dirname + '/client')));
 
 const port = process.env.PORT || 2000;
