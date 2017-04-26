@@ -65,16 +65,34 @@ for(var road in Roads){
   var w,h;
 
 function Spot(p,i,j){
-  this.x = i;
-  this.y = j;
+  this.i = i;
+  this.j = j;
   this.f = 0;
   this.g = 0;
   this.h = 0;
+  this.neighbors = [];
 
   this.show = function(color){
     p.fill(color);
     p.noStroke();
-    p.rect(this.x*w,this.y*h,w-1,h-1);
+    p.rect(this.i*w,this.j*h,w-1,h-1);
+  }
+
+  this.addNeighbors = function(grid,cols,rows){
+    var i = this.i;
+    var j = this.j;
+    if(i < cols - 1){
+      this.neighbors.push(grid[i + 1][j]);
+    }
+    if(i > 0){
+      this.neighbors.push(grid[i - 1][j]);
+    }
+    if(j < rows - 1){
+      this.neighbors.push(grid[i][j + 1]);
+    }
+    if(j > 0){
+      this.neighbors.push(grid[i][j - 1]);
+    }
   }
 }
 
@@ -103,6 +121,14 @@ var s = function(p) {
       }
     }
 
+    for(var i = 0; i < cols; i++){
+      for(var j = 0; j< rows; j++){
+        grid[i][j].addNeighbors(grid,cols,rows);
+      }
+    }
+
+    console.log(grid);
+
     //The ending and starting node
     start = grid[0][0];
     end = grid[cols - 1][rows - 1]
@@ -114,7 +140,45 @@ var s = function(p) {
 
   p.draw = function() {
     if(openSet.length > 0){
-      //we can keep searching
+
+      var lowestIndex = 0;
+      for(var i = 0; i < openSet.length; i++){
+        if(openSet[i].f < openSet[lowestIndex].f){
+          lowestIndex = i;
+        }
+      }
+
+      var current = openSet[lowestIndex];
+
+      if(current === end){
+        console.log("DONE!");
+      }
+
+      removeFromArray(openSet, current);
+      closedSet.push(current);
+
+      var neighbors = current.neighbors;
+      for(var i = 0; i < neighbors.length; i++){
+        var neighbor = neighbors[i];
+        if(!closedSet.includes(neighbor)){
+          var tempG = current.g + 1;
+
+          if(openSet.includes(neighbor)){
+            if(tempG < neighbor.g){
+              neighbor.g = tempG;
+            }
+          } else {
+            neighbor.g = tempG;
+            openSet.push(neighbor);
+          }
+
+          //heuristic begins
+
+          neighbor.h = heuristic(neighbor,end);
+          neighbor.f = neighbor.g + neighbor.h;
+        }
+      }
+
     } else {
       // no solution
     }
@@ -140,10 +204,23 @@ var s = function(p) {
 
 var myp5 = new p5(s);
 
-
 //Ui function
 function centerCanvas(canvas) {
   var x = (myp5.windowWidth - myp5.width) / 2;
   var y = (myp5.windowHeight - myp5.height) / 2;
   canvas.position(x, y);
+}
+
+//Handy functions
+function removeFromArray(arr,elt){
+  for(var i = arr.length-1; i>=0; i--){
+    if(arr[i] == elt){
+      arr.splice(i,1);
+    }
+  }
+}
+
+//heuristic functions
+function heuristic(a,b){
+  return myp5.dist(a.i,a.j,b.i,b.j);
 }
