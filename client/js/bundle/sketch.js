@@ -78,13 +78,13 @@ for(var road in Roads){
 	//console.log("Road name: " + r.name + " First coordinate: "+ r.firstCoord + " Second coordinate: " + r.secondCoord + " Length: " + r.length);
 }
 
-
 //A* algorithm
   var openSet = [];
   var closedSet = [];
   var start;
   var end;
   var w,h;
+  var path = [];
 
 function Spot(p,i,j){
   this.i = i;
@@ -93,9 +93,17 @@ function Spot(p,i,j){
   this.g = 0;
   this.h = 0;
   this.neighbors = [];
+  this.previous = undefined
+  this.wall = false;
 
+  if(p.random(1) < 0.3){
+    this.wall = true;
+  }
   this.show = function(color){
     p.fill(color);
+    if(this.wall){
+     p.fill(0);
+    }
     p.noStroke();
     p.rect(this.i*w,this.j*h,w-1,h-1);
   }
@@ -115,18 +123,30 @@ function Spot(p,i,j){
     if(j > 0){
       this.neighbors.push(grid[i][j - 1]);
     }
+    if(i > 0 && j > 0){
+      this.neighbors.push(grid[i - 1][j - 1]);
+    }
+    if(i < cols - 1 && j > 0){
+      this.neighbors.push(grid[i + 1][j - 1]);
+    }
+    if(i > 0 && j < rows - 1){
+      this.neighbors.push(grid[i - 1][j + 1]);
+    }
+    if(i < cols - 1 && j < rows - 1){
+      this.neighbors.push(grid[i + 1][j + 1]);
+    }
   }
 }
 
 var s = function(p) {
 
-  var cols = 5;
-  var rows = 5;
+  var cols = 50;
+  var rows = 50;
   var grid = new Array(cols);
 
   p.setup = function() {
     //create canvas and center it
-    var canvas = p.createCanvas(400, 400);
+    var canvas = p.createCanvas(700, 700);
     centerCanvas(canvas);
 
     w = p.width / cols;
@@ -154,6 +174,8 @@ var s = function(p) {
     //The ending and starting node
     start = grid[0][0];
     end = grid[cols - 1][rows - 1]
+    start.wall = false;
+    end.wall = false;
 
     openSet.push(start);
 
@@ -173,6 +195,9 @@ var s = function(p) {
       var current = openSet[lowestIndex];
 
       if(current === end){
+
+
+        p.noLoop();
         console.log("DONE!");
       }
 
@@ -182,26 +207,34 @@ var s = function(p) {
       var neighbors = current.neighbors;
       for(var i = 0; i < neighbors.length; i++){
         var neighbor = neighbors[i];
-        if(!closedSet.includes(neighbor)){
+        if(!closedSet.includes(neighbor) && !neighbor.wall){
           var tempG = current.g + 1;
 
+          var newPath = false;
           if(openSet.includes(neighbor)){
             if(tempG < neighbor.g){
               neighbor.g = tempG;
+              newPath = true;
             }
           } else {
             neighbor.g = tempG;
+            newPath = true;
             openSet.push(neighbor);
           }
 
           //heuristic begins
-
-          neighbor.h = heuristic(neighbor,end);
-          neighbor.f = neighbor.g + neighbor.h;
+          if(newPath){
+            neighbor.h = heuristic(neighbor,end);
+            neighbor.f = neighbor.g + neighbor.h;
+            neighbor.previous = current;
+          }
         }
       }
 
     } else {
+      console.log("No solution");
+      p.noLoop();
+      return;
       // no solution
     }
 
@@ -221,6 +254,26 @@ var s = function(p) {
     for(var i = 0; i < closedSet.length; i++){
       closedSet[i].show(p.color(255,0,0));
     }
+
+    //find the patch
+    path = [];
+    var temp = current;
+    path.push(temp);
+    while(temp.previous){
+      path.push(temp.previous)
+      temp = temp.previous;
+    }
+
+    for(var i = 0; i < path.length; i++){
+      path[i].show(p.color(0,0,255));
+    }
+    p.noFill();
+    p.stroke(255);
+    p.beginShape();
+    for(var i = 0; i < path.length; i++){
+      p.vertex(path[i].i * w + w / 2, path[i].j * h + h / 2);
+    }
+    p.endShape();
   };
 };
 
@@ -244,6 +297,7 @@ function removeFromArray(arr,elt){
 
 //heuristic functions
 function heuristic(a,b){
+  //return Math.abs(a.i-b.i) + Math.abs(a.j-b.j);
   return myp5.dist(a.i,a.j,b.i,b.j);
 }
 },{"./entities/Intersection.js":1,"./entities/Road.js":2}]},{},[3]);
