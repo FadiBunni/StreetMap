@@ -96,7 +96,7 @@ function Spot(p,i,j){
   this.previous = undefined
   this.wall = false;
 
-  if(p.random(1) < 0.3){
+  if(p.random(1) < 0.4){
     this.wall = true;
   }
   this.show = function(color){
@@ -140,13 +140,13 @@ function Spot(p,i,j){
 
 var s = function(p) {
 
-  var cols = 50;
-  var rows = 50;
+  var cols = 60;
+  var rows = 60;
   var grid = new Array(cols);
 
   p.setup = function() {
     //create canvas and center it
-    var canvas = p.createCanvas(700, 700);
+    var canvas = p.createCanvas(800, 800);
     centerCanvas(canvas);
 
     w = p.width / cols;
