@@ -81,12 +81,14 @@ for(var road in Roads){
 //A* algorithm
   var openSet = [];
   var closedSet = [];
+  var intersection = [];
   var start;
   var end;
   var w,h;
   var path = [];
 
 function Spot(p,i,j){
+  //this.intercoord = intercoord;
   this.i = i;
   this.j = j;
   this.f = 0;
@@ -94,23 +96,34 @@ function Spot(p,i,j){
   this.h = 0;
   this.neighbors = [];
   this.previous = undefined
+  this.intersection = false;
   this.wall = false;
 
-  if(p.random(1) < 0.4){
-    this.wall = true;
-  }
+  // if(p.random(1) < 0.4){
+  //   this.wall = true;
+  // }
+
+
+
   this.show = function(color){
     p.fill(color);
     if(this.wall){
-     p.fill(0);
+      p.fill(0);
     }
     p.noStroke();
+    if(this.intersection){
+      p.fill(127,0,255);
+      p.textSize(10);
+      p.text(i.toString() +","+ j.toString(),i * w-2, j * h-7);
+    }
     p.rect(this.i*w,this.j*h,w-1,h-1);
   }
 
   this.addNeighbors = function(grid,cols,rows){
     var i = this.i;
     var j = this.j;
+
+    //sideways
     if(i < cols - 1){
       this.neighbors.push(grid[i + 1][j]);
     }
@@ -123,6 +136,8 @@ function Spot(p,i,j){
     if(j > 0){
       this.neighbors.push(grid[i][j - 1]);
     }
+
+    //diagonal
     if(i > 0 && j > 0){
       this.neighbors.push(grid[i - 1][j - 1]);
     }
@@ -140,14 +155,15 @@ function Spot(p,i,j){
 
 var s = function(p) {
 
-  var cols = 60;
-  var rows = 60;
+  var cols = 30;
+  var rows = 30;
   var grid = new Array(cols);
 
   p.setup = function() {
     //create canvas and center it
     var canvas = p.createCanvas(800, 800);
     centerCanvas(canvas);
+    var pg = p.createGraphics(100,100);
 
     w = p.width / cols;
     h = p.height / rows;
@@ -163,23 +179,36 @@ var s = function(p) {
       }
     }
 
+
+    //adding intersections.
+    for(var intersect in Intersections){
+      var intercoord = Intersections[intersect].coordinate.split(" ").map(Number)
+      for(var i = 0; i < cols; i++){
+        for(var j = 0; j< rows; j++){
+          if(grid[i][j].i === intercoord[0]/5-1 && grid[i][j].j === intercoord[1]/5-1){
+            grid[i][j].intersection = true;
+            intersection.push(grid[i][j]);
+          }
+        }
+      }
+    }
+    console.log(intersection);
+
     for(var i = 0; i < cols; i++){
       for(var j = 0; j< rows; j++){
         grid[i][j].addNeighbors(grid,cols,rows);
       }
     }
 
-    console.log(grid);
+    //console.log(grid);
 
     //The ending and starting node
-    start = grid[0][0];
-    end = grid[cols - 1][rows - 1]
+    start = grid[1][13];
+    end = grid[13][16]
     start.wall = false;
     end.wall = false;
 
     openSet.push(start);
-
-    //console.log(grid);
   };
 
   p.draw = function() {
@@ -195,8 +224,6 @@ var s = function(p) {
       var current = openSet[lowestIndex];
 
       if(current === end){
-
-
         p.noLoop();
         console.log("DONE!");
       }
@@ -209,6 +236,7 @@ var s = function(p) {
         var neighbor = neighbors[i];
         if(!closedSet.includes(neighbor) && !neighbor.wall){
           var tempG = current.g + 1;
+          
 
           var newPath = false;
           if(openSet.includes(neighbor)){
@@ -267,6 +295,7 @@ var s = function(p) {
     for(var i = 0; i < path.length; i++){
       path[i].show(p.color(0,0,255));
     }
+
     p.noFill();
     p.stroke(255);
     p.beginShape();
@@ -274,6 +303,9 @@ var s = function(p) {
       p.vertex(path[i].i * w + w / 2, path[i].j * h + h / 2);
     }
     p.endShape();
+
+
+
   };
 };
 
