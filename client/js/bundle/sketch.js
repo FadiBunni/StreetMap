@@ -33,39 +33,39 @@ var Intersections = {}
 Intersections[Object.keys(Intersections).length] = new Intersection("10 70");
 Intersections[Object.keys(Intersections).length] = new Intersection("20 50");
 Intersections[Object.keys(Intersections).length] = new Intersection("35 35");
-Intersections[Object.keys(Intersections).length] = new Intersection("35 80");
-Intersections[Object.keys(Intersections).length] = new Intersection("50 90");
-Intersections[Object.keys(Intersections).length] = new Intersection("65 100");
-Intersections[Object.keys(Intersections).length] = new Intersection("45 75");
-Intersections[Object.keys(Intersections).length] = new Intersection("70 85");
-Intersections[Object.keys(Intersections).length] = new Intersection("55 55");
-Intersections[Object.keys(Intersections).length] = new Intersection("80 70");
-Intersections[Object.keys(Intersections).length] = new Intersection("60 150");
-Intersections[Object.keys(Intersections).length] = new Intersection("65 110");
-Intersections[Object.keys(Intersections).length] = new Intersection("45 70");
-Intersections[Object.keys(Intersections).length] = new Intersection("25 100");
-Intersections[Object.keys(Intersections).length] = new Intersection("35 120");
+// Intersections[Object.keys(Intersections).length] = new Intersection("35 80");
+// Intersections[Object.keys(Intersections).length] = new Intersection("50 90");
+// Intersections[Object.keys(Intersections).length] = new Intersection("65 100");
+// Intersections[Object.keys(Intersections).length] = new Intersection("45 75");
+// Intersections[Object.keys(Intersections).length] = new Intersection("70 85");
+// Intersections[Object.keys(Intersections).length] = new Intersection("55 55");
+// Intersections[Object.keys(Intersections).length] = new Intersection("80 70");
+// Intersections[Object.keys(Intersections).length] = new Intersection("60 150");
+// Intersections[Object.keys(Intersections).length] = new Intersection("65 110");
+// Intersections[Object.keys(Intersections).length] = new Intersection("45 70");
+// Intersections[Object.keys(Intersections).length] = new Intersection("25 100");
+// Intersections[Object.keys(Intersections).length] = new Intersection("35 120");
 
 Roads[Object.keys(Roads).length] = new Road("10 70", "Vestervoldgade", "20 50" , false);
 Roads[Object.keys(Roads).length] = new Road("20 50", "Vestervoldgade", "35 35" , false);
-Roads[Object.keys(Roads).length] = new Road("10 70", "SktPedersStraede", "35 80" , true);
-Roads[Object.keys(Roads).length] = new Road("35 80", "SktPedersStraede", "50 90" , true);
-Roads[Object.keys(Roads).length] = new Road("65 100", "SktPedersStraede", "50 90" , true);
-Roads[Object.keys(Roads).length] = new Road("20 50", "Studiestraede", "45 70" , true);
-Roads[Object.keys(Roads).length] = new Road("45 70", "Studiestraede", "70 85" , true);
-Roads[Object.keys(Roads).length] = new Road("60 150", "Noerregade", "65 110" , true);
-Roads[Object.keys(Roads).length] = new Road("65 110", "Noerregade", "65 100" , true);
-Roads[Object.keys(Roads).length] = new Road("65 100", "Noerregade", "70 85" , true);
-Roads[Object.keys(Roads).length] = new Road("70 85", "Noerregade", "80 70" , true);
-Roads[Object.keys(Roads).length] = new Road("45 70", "Larsbjoernsstraede", "55 55" , true);
-Roads[Object.keys(Roads).length] = new Road("45 70", "Larsbjoernsstraede", "35 80" , true);
-Roads[Object.keys(Roads).length] = new Road("25 100", "TeglgaardsStraede", "35 80" , true);
-Roads[Object.keys(Roads).length] = new Road("50 90", "LarslejStraede", "35 120" , true);
-Roads[Object.keys(Roads).length] = new Road("10 70", "Noerrevoldgade", "25 100" , false);
-Roads[Object.keys(Roads).length] = new Road("25 100", "Noerrevoldgade", "35 120" , false);
-Roads[Object.keys(Roads).length] = new Road("35 120", "Noerrevoldgade", "60 150" , false);
-Roads[Object.keys(Roads).length] = new Road("80 70", "Vestergade", "55 55" , false);
-Roads[Object.keys(Roads).length] = new Road("55 55", "Vestergade", "35 35" , false);
+// Roads[Object.keys(Roads).length] = new Road("10 70", "SktPedersStraede", "35 80" , true);
+// Roads[Object.keys(Roads).length] = new Road("35 80", "SktPedersStraede", "50 90" , true);
+// Roads[Object.keys(Roads).length] = new Road("65 100", "SktPedersStraede", "50 90" , true);
+// Roads[Object.keys(Roads).length] = new Road("20 50", "Studiestraede", "45 70" , true);
+// Roads[Object.keys(Roads).length] = new Road("45 70", "Studiestraede", "70 85" , true);
+// Roads[Object.keys(Roads).length] = new Road("60 150", "Noerregade", "65 110" , true);
+// Roads[Object.keys(Roads).length] = new Road("65 110", "Noerregade", "65 100" , true);
+// Roads[Object.keys(Roads).length] = new Road("65 100", "Noerregade", "70 85" , true);
+// Roads[Object.keys(Roads).length] = new Road("70 85", "Noerregade", "80 70" , true);
+// Roads[Object.keys(Roads).length] = new Road("45 70", "Larsbjoernsstraede", "55 55" , true);
+// Roads[Object.keys(Roads).length] = new Road("45 70", "Larsbjoernsstraede", "35 80" , true);
+// Roads[Object.keys(Roads).length] = new Road("25 100", "TeglgaardsStraede", "35 80" , true);
+// Roads[Object.keys(Roads).length] = new Road("50 90", "LarslejStraede", "35 120" , true);
+// Roads[Object.keys(Roads).length] = new Road("10 70", "Noerrevoldgade", "25 100" , false);
+// Roads[Object.keys(Roads).length] = new Road("25 100", "Noerrevoldgade", "35 120" , false);
+// Roads[Object.keys(Roads).length] = new Road("35 120", "Noerrevoldgade", "60 150" , false);
+// Roads[Object.keys(Roads).length] = new Road("80 70", "Vestergade", "55 55" , false);
+// Roads[Object.keys(Roads).length] = new Road("55 55", "Vestergade", "35 35" , false);
 
 
 for(var intersect in Intersections){
@@ -81,7 +81,7 @@ for(var road in Roads){
 //A* algorithm
   var openSet = [];
   var closedSet = [];
-  var intersection = [];
+  var intersectionsList = [];
   var start;
   var end;
   var w,h;
@@ -95,6 +95,7 @@ function Spot(p,i,j){
   this.g = 0;
   this.h = 0;
   this.neighbors = [];
+  this.intersectionNeighbors = [];
   this.previous = undefined
   this.intersection = false;
   this.wall = false;
@@ -102,8 +103,6 @@ function Spot(p,i,j){
   // if(p.random(1) < 0.4){
   //   this.wall = true;
   // }
-
-
 
   this.show = function(color){
     p.fill(color);
@@ -187,12 +186,31 @@ var s = function(p) {
         for(var j = 0; j< rows; j++){
           if(grid[i][j].i === intercoord[0]/5-1 && grid[i][j].j === intercoord[1]/5-1){
             grid[i][j].intersection = true;
-            intersection.push(grid[i][j]);
+            intersectionsList.push(grid[i][j]);
           }
         }
       }
     }
-    console.log(intersection);
+
+    //adding neighbors to each intersection.
+    for(var i = 0; i < intersectionsList.length; i++){
+      var intersection = intersectionsList[i];
+      // console.log(intersection);
+      for(var road in Roads){
+        var r = Roads[road];
+        var firstCoord = r.firstCoord.split(" ").map(Number);
+        var secondCoord = r.secondCoord.split(" ").map(Number);
+        // console.log("road.i " + (coord[0]/5-1));
+        // console.log("intersection.i " + intersection.i);
+        // console.log("road.j " + (coord[1]/5-1));
+        // console.log("intersection.j " + intersection.j);
+        if(intersection.i === (firstCoord[0]/5-1) || intersection.i === (firstCoord[1]/5-1)){
+          intersection.intersectionNeighbors.push(secondCoord);
+        }
+      }
+      //console.log(intersection.intersectionNeighbors);
+      //console.log("nextLoop");
+    }
 
     for(var i = 0; i < cols; i++){
       for(var j = 0; j< rows; j++){
@@ -200,11 +218,9 @@ var s = function(p) {
       }
     }
 
-    //console.log(grid);
-
     //The ending and starting node
     start = grid[1][13];
-    end = grid[13][16]
+    end = grid[6][6]
     start.wall = false;
     end.wall = false;
 
@@ -221,7 +237,9 @@ var s = function(p) {
         }
       }
 
+      //console.log(lowestIndex);
       var current = openSet[lowestIndex];
+      //console.log(current);
 
       if(current === end){
         p.noLoop();
@@ -232,11 +250,13 @@ var s = function(p) {
       closedSet.push(current);
 
       var neighbors = current.neighbors;
+
+
+      console.log(current.neighbors);
       for(var i = 0; i < neighbors.length; i++){
         var neighbor = neighbors[i];
         if(!closedSet.includes(neighbor) && !neighbor.wall){
           var tempG = current.g + 1;
-          
 
           var newPath = false;
           if(openSet.includes(neighbor)){
