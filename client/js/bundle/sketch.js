@@ -2,7 +2,8 @@
 function Intersection(coordinate){
 	this.coordinate = coordinate;
 	this.intersectionNeighbors = [];
-	this.previous = undefined
+	this.parent = undefined
+	this.debug;
 	this.f = 0;
 	this.g = 0;
 	this.h = 0;
@@ -41,7 +42,6 @@ Intersections[Object.keys(Intersections).length] = new Intersection("35 35");
 Intersections[Object.keys(Intersections).length] = new Intersection("35 80");
 Intersections[Object.keys(Intersections).length] = new Intersection("50 90");
 Intersections[Object.keys(Intersections).length] = new Intersection("65 100");
-Intersections[Object.keys(Intersections).length] = new Intersection("45 75");
 Intersections[Object.keys(Intersections).length] = new Intersection("70 85");
 Intersections[Object.keys(Intersections).length] = new Intersection("55 55");
 Intersections[Object.keys(Intersections).length] = new Intersection("80 70");
@@ -51,35 +51,38 @@ Intersections[Object.keys(Intersections).length] = new Intersection("45 70");
 Intersections[Object.keys(Intersections).length] = new Intersection("25 100");
 Intersections[Object.keys(Intersections).length] = new Intersection("35 120");
 
-Roads[Object.keys(Roads).length] = new Road("10 70", "Vestervoldgade", "20 50" , false);
-Roads[Object.keys(Roads).length] = new Road("20 50", "Vestervoldgade", "35 35" , false);
-Roads[Object.keys(Roads).length] = new Road("10 70", "SktPedersStraede", "35 80" , true);
-Roads[Object.keys(Roads).length] = new Road("35 80", "SktPedersStraede", "50 90" , true);
-Roads[Object.keys(Roads).length] = new Road("65 100", "SktPedersStraede", "50 90" , true);
-Roads[Object.keys(Roads).length] = new Road("20 50", "Studiestraede", "45 70" , true);
-Roads[Object.keys(Roads).length] = new Road("45 70", "Studiestraede", "70 85" , true);
-Roads[Object.keys(Roads).length] = new Road("60 150", "Noerregade", "65 110" , true);
-Roads[Object.keys(Roads).length] = new Road("65 110", "Noerregade", "65 100" , true);
-Roads[Object.keys(Roads).length] = new Road("65 100", "Noerregade", "70 85" , true);
-Roads[Object.keys(Roads).length] = new Road("70 85", "Noerregade", "80 70" , true);
-Roads[Object.keys(Roads).length] = new Road("45 70", "Larsbjoernsstraede", "55 55" , true);
-Roads[Object.keys(Roads).length] = new Road("45 70", "Larsbjoernsstraede", "35 80" , true);
-Roads[Object.keys(Roads).length] = new Road("25 100", "TeglgaardsStraede", "35 80" , true);
-Roads[Object.keys(Roads).length] = new Road("50 90", "LarslejStraede", "35 120" , true);
-Roads[Object.keys(Roads).length] = new Road("10 70", "Noerrevoldgade", "25 100" , false);
-Roads[Object.keys(Roads).length] = new Road("25 100", "Noerrevoldgade", "35 120" , false);
-Roads[Object.keys(Roads).length] = new Road("35 120", "Noerrevoldgade", "60 150" , false);
-Roads[Object.keys(Roads).length] = new Road("80 70", "Vestergade", "55 55" , false);
-Roads[Object.keys(Roads).length] = new Road("55 55", "Vestergade", "35 35" , false);
+Roads[Object.keys(Roads).length] = new Road("10 70", "Vestervoldgade", "20 50");
+Roads[Object.keys(Roads).length] = new Road("20 50", "Vestervoldgade", "10 70");
+Roads[Object.keys(Roads).length] = new Road("20 50", "Vestervoldgade", "35 35");
+Roads[Object.keys(Roads).length] = new Road("35 35", "Vestervoldgade", "20 50");
+Roads[Object.keys(Roads).length] = new Road("10 70", "SktPedersStraede", "35 80");
+Roads[Object.keys(Roads).length] = new Road("35 80", "SktPedersStraede", "50 90");
+Roads[Object.keys(Roads).length] = new Road("65 100", "SktPedersStraede", "50 90");
+Roads[Object.keys(Roads).length] = new Road("20 50", "Studiestraede", "45 70");
+Roads[Object.keys(Roads).length] = new Road("45 70", "Studiestraede", "70 85");
+Roads[Object.keys(Roads).length] = new Road("60 150", "Noerregade", "65 110");
+Roads[Object.keys(Roads).length] = new Road("65 110", "Noerregade", "65 100");
+Roads[Object.keys(Roads).length] = new Road("65 100", "Noerregade", "70 85");
+Roads[Object.keys(Roads).length] = new Road("70 85", "Noerregade", "80 70");
+Roads[Object.keys(Roads).length] = new Road("45 70", "Larsbjoernsstraede", "55 55");
+Roads[Object.keys(Roads).length] = new Road("45 70", "Larsbjoernsstraede", "35 80");
+Roads[Object.keys(Roads).length] = new Road("25 100", "TeglgaardsStraede", "35 80");
+Roads[Object.keys(Roads).length] = new Road("50 90", "LarslejStraede", "35 120");
+Roads[Object.keys(Roads).length] = new Road("10 70", "Noerrevoldgade", "25 100");
+Roads[Object.keys(Roads).length] = new Road("25 100", "Noerrevoldgade", "10 70");
+Roads[Object.keys(Roads).length] = new Road("25 100", "Noerrevoldgade", "35 120");
+Roads[Object.keys(Roads).length] = new Road("35 120", "Noerrevoldgade", "25 100");
+Roads[Object.keys(Roads).length] = new Road("35 120", "Noerrevoldgade", "60 150");
+Roads[Object.keys(Roads).length] = new Road("60 150", "Noerrevoldgade", "35 120");
+Roads[Object.keys(Roads).length] = new Road("80 70", "Vestergade", "55 55");
+Roads[Object.keys(Roads).length] = new Road("55 55", "Vestergade", "35 35");
 
 //A* algorithm
   var openSet = [];
   var closedSet = [];
-  var intersectionsList = [];
   var start;
   var end;
   var w,h;
-  var path = [];
 
 var s = function(p) {
 
@@ -90,21 +93,6 @@ var s = function(p) {
 
     //w = p.width / cols;
     //h = p.height / rows;
-
-
-
-    //adding intersections.
-    // for(var intersect in Intersections){
-    //   var intercoord = Intersections[intersect].coordinate.split(" ").map(Number)
-    //   for(var i = 0; i < cols; i++){
-    //     for(var j = 0; j< rows; j++){
-    //       if(grid[i][j].i === intercoord[0]/5-1 && grid[i][j].j === intercoord[1]/5-1){
-    //         grid[i][j].intersection = true;
-    //         intersectionsList.push(grid[i][j]);
-    //       }
-    //     }
-    //   }
-    // }
 
     //adding neighbors to each intersection.
     for(var intersect in Intersections){
@@ -119,24 +107,22 @@ var s = function(p) {
         // console.log("Road " + firstCoord[0]);
         // console.log("intersection " + coord[0]);
         if(coord[0] === firstCoord[0] && coord[1] === firstCoord[1]){
-          console.log(inter);
-          //inter.intersectionNeighbors.push(secondCoord);
-          //console.log("heyy");
+          for(var intersect in Intersections){
+            var newinter = Intersections[intersect];
+            var newcoord = newinter.coordinate.split(" ").map(Number);
+            // console.log("Road " + secondCoord[1]);
+            // console.log("intersection " + newcoord[1]);
+            if(secondCoord[0] === newcoord[0] && secondCoord[1] === newcoord[1]){
+              inter.intersectionNeighbors.push(newinter);
+            }
+          }
         }
       }
-      //console.log("nextLoop");
-      //console.log(inter.intersectionNeighbors);
     }
 
-    // for(var i = 0; i < cols; i++){
-    //   for(var j = 0; j< rows; j++){
-    //     grid[i][j].addNeighbors(grid,cols,rows);
-    //   }
-    // }
-
     //The ending and starting node
-    start = Intersections[0];
-    end = Intersections[1]
+    start = Intersections[12];
+    end = Intersections[5]
 
     openSet.push(start);
     //console.log(openSet);
@@ -144,7 +130,6 @@ var s = function(p) {
 
   p.draw = function() {
     if(openSet.length > 0){
-      //console.log(openSet);
       var lowestIndex = 0;
       for(var i = 0; i < openSet.length; i++){
         if(openSet[i].f < openSet[lowestIndex].f){
@@ -153,59 +138,67 @@ var s = function(p) {
       }
 
       //console.log(lowestIndex);
-
       var current = openSet[lowestIndex];
-      console.log(current);
       //console.log(end);
-      if(current === end){
+      if(current == end){
+        var curr = current;
+        var ret = [];
+        while(curr.parent){
+          ret.push(curr);
+          curr = curr.parent;
+
+        }
         p.noLoop();
         console.log("DONE!");
+        for(var i = 0; i < ret.length; i++){
+          var r = ret[i];
+          console.log(r.coordinate);
+        }
+        console.log(start.coordinate)
       }
 
       removeFromArray(openSet,current);
-      //console.log(current);
       closedSet.push(current);
 
       var neighbors = current.intersectionNeighbors;
-      //console.log(current);
-      if(neighbors){
-        for(var i = 0; i < neighbors.length; i++){
-          var neighbor = neighbors[i];
-          if(!closedSet.includes(neighbor)){
-            var tempG = current.g + distBetween(current,neighbor);
-
-            // var newPath = false;
-            if(openSet.includes(neighbor)){
-              if(tempG < neighbor.g){
-                neighbor.g = tempG;
-                // newPath = true;
-              }
-            } else {
-              neighbor.g = tempG;
-              // newPath = true;
-              //console.log(neighbor);
-              //console.log(neighbor);
-              openSet.push(neighbor);
-            }
-
-            //heuristic begins
-            // if(newPath){
-              neighbor.h = heuristic(neighbor,end);
-              neighbor.f = neighbor.g + neighbor.h;
-              neighbor.previous = current;
-            // }
-          }
+      for(var i = 0; i < neighbors.length; i++){
+        var neighbor = neighbors[i];
+        //console.log(neighbor);
+        if(closedSet.includes(neighbor)){
+          continue;
         }
-        } else {
-          console.log("No solution");
-          p.noLoop();
-          return;
-          // no solution
+        var tempG = current.g + distBetween(neighbor,current);
+        // console.log(neighbor);
+        // console.log(current);
+        var newPath = false;
+
+        if(!openSet.includes(neighbor)){
+
+          newPath = true;
+          neighbor.h = heuristic(neighbor,end);
+          openSet.push(neighbor);
+        }else if(tempG < neighbor.g ){
+          newPath = true;
+        }
+        //heuristic begins
+        //console.log("hey")
+        if(newPath){
+          neighbor.parent = current;
+          neighbor.g = tempG;
+          neighbor.f = neighbor.g + neighbor.h;
+          neighbor.debug =  "F: " + neighbor.f + "<br />G: " + neighbor.g + "<br />H: " + neighbor.h;
+          //console.log(neighbor.debug);
         }
       }
+    } else {
+      console.log("No solution");
+      p.noLoop();
+      return;
+    }
+    //p.noLoop();
 
 
-    p.background(0);
+    //p.background(0);
 
     //print out open and closed list:
     // for(var i = 0; i < openSet.length; i++){
@@ -236,7 +229,6 @@ var s = function(p) {
     //   p.vertex(path[i].i * w + w / 2, path[i].j * h + h / 2);
     // }
     // p.endShape();
-
   };
 };
 
@@ -261,15 +253,17 @@ function removeFromArray(arr,elt){
 
 //heuristic functions
 function heuristic(neighbor,end){
-  var coordb = end.coordinate.split(" ").map(Number);
+  var neighborCoord = neighbor.coordinate.split(" ").map(Number);
+  var endCord = end.coordinate.split(" ").map(Number);
+
   //return Math.abs(a.i-b.i) + Math.abs(a.j-b.j);
-  return myp5.dist(neighbor[0],neighbor[1],coordb[0],coordb[1]);
+  return myp5.dist(neighborCoord[0],neighborCoord[1],endCord[0],endCord[1]);
 }
 
-function distBetween(current,neighbor){
-    var coordb = end.coordinate.split(" ").map(Number);
-    // console.log("current" + coordb)
-    // console.log("neighbor" + neighbor);
-    return myp5.dist(coordb[0],coordb[1],neighbor[0],neighbor[1]);
+function distBetween(neighbor,current){
+    var neighborCoord = neighbor.coordinate.split(" ").map(Number);
+    var currentCoord = current.coordinate.split(" ").map(Number);
+    //console.log(myp5.dist(neighborCoord[0],neighborCoord[1],currentCoord[0],currentCoord[1]));
+    return myp5.dist(neighborCoord[0],neighborCoord[1],currentCoord[0],currentCoord[1]);
 }
 },{"./entities/Intersection.js":1,"./entities/Road.js":2}]},{},[3]);
