@@ -1,12 +1,29 @@
 const Intersection = require('./entities/Intersection.js');
 const Road = require('./entities/Road.js');
+const Clause = require('./entities/Clause.js');
 
 var socket = io();
 
-socket.on('connected', 'hey');
+socket.on('connected','hey');
 
-var Roads = {}
-var Intersections = {}
+var Roads = {};
+var Intersections = {};
+var Clauses = new Array();
+var NotAlpha = new Array();
+var Kb = [];
+
+Clauses[0] = new Array(new Clause("h", true),new Clause("j", true),new Clause("f", true),new Clause("br", true));
+Clauses[1] = new Array(new Clause("h", true),new Clause("f", true),new Clause("br", true));
+Clauses[2] = new Array(new Clause("co", true),new Clause("cr", true),new Clause("h", true));
+Clauses[3] = new Array(new Clause("to", true),new Clause("bu", true),new Clause("f", true));
+Clauses[4] = new Array(new Clause("e", false),new Clause("f", true));
+NotAlpha[0] = new Array(new Clause("br", false));
+
+Kb.push(Clauses);
+console.log("clauses: ");
+console.log(Clauses);
+console.log("Kb: ");
+console.log(Kb);
 
 Intersections[Object.keys(Intersections).length] = new Intersection("10 70");
 Intersections[Object.keys(Intersections).length] = new Intersection("20 50");
@@ -93,13 +110,14 @@ var s = function(p) {
     }
 
     //The ending and starting node
-    start = Intersections[12];
-    end = Intersections[5]
+    start = Intersections[1];
+    end = Intersections[7]
 
     openSet.push(start);
     //console.log(openSet);
   };
 
+  //draw is already a loop, noo need of a while loop.
   p.draw = function() {
     if(openSet.length > 0){
       var lowestIndex = 0;
@@ -118,15 +136,32 @@ var s = function(p) {
         while(curr.parent){
           ret.push(curr);
           curr = curr.parent;
-
         }
         p.noLoop();
-        console.log("DONE!");
+        console.log("SLUT!");
         for(var i = 0; i < ret.length; i++){
           var r = ret[i];
           console.log(r.coordinate);
+          if(i == ret.length-1){
+            for(var road in Roads) {
+              var ro = Roads[road];
+              if(ro.firstCoord == r.coordinate && ro.secondCoord == start.coordinate) {
+                console.log(ro.name);
+              }
+            }
+          }else {
+            var r2 = ret[i+1];
+            for(var road in Roads) {
+              var ro = Roads[road];
+              if(ro.firstCoord == r2.coordinate && ro.secondCoord == r.coordinate) {
+                console.log(ro.name);
+              }
+            }
+          }
+
         }
         console.log(start.coordinate)
+        console.log("START!");
       }
 
       removeFromArray(openSet,current);
@@ -217,7 +252,6 @@ function centerCanvas(canvas) {
 function removeFromArray(arr,elt){
   for(var i = arr.length-1; i >= 0; i--){
     if(arr[i] == elt){
-      //console.log(elt)
       arr.splice(i,1);
     }
   }
