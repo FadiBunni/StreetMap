@@ -118,15 +118,32 @@ var s = function(p) {
         while(curr.parent){
           ret.push(curr);
           curr = curr.parent;
-
         }
         p.noLoop();
-        console.log("DONE!");
+        console.log("SLUT!");
         for(var i = 0; i < ret.length; i++){
           var r = ret[i];
           console.log(r.coordinate);
+          if(i == ret.length-1){
+            for(var road in Roads) {
+              var ro = Roads[road];
+              if(ro.firstCoord == r.coordinate && ro.secondCoord == start.coordinate) {
+                console.log(ro.name);
+              }
+            }
+          }else {
+            var r2 = ret[i+1];
+            for(var road in Roads) {
+              var ro = Roads[road];
+              if(ro.firstCoord == r2.coordinate && ro.secondCoord == r.coordinate) {
+                console.log(ro.name);
+              }
+            }
+          }
+
         }
         console.log(start.coordinate)
+        console.log("START!");
       }
 
       removeFromArray(openSet,current);
