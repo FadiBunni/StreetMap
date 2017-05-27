@@ -90,9 +90,6 @@ var s = function(p) {
     var canvas = p.createCanvas(800, 800);
     centerCanvas(canvas);
 
-    //w = p.width / cols;
-    //h = p.height / rows;
-
     //adding neighbors to each intersection.
     for(var intersect in Intersections){
       var inter = Intersections[intersect];
@@ -211,40 +208,6 @@ var s = function(p) {
       p.noLoop();
       return;
     }
-    //p.noLoop();
-
-
-    //p.background(0);
-
-    //print out open and closed list:
-    // for(var i = 0; i < openSet.length; i++){
-    //   openSet[i].show(p.color(0,255,0));
-    // }
-
-    // for(var i = 0; i < closedSet.length; i++){
-    //   closedSet[i].show(p.color(255,0,0));
-    // }
-
-    // //find the patch
-    // path = [];
-    // var temp = current;
-    // path.push(temp);
-    // while(temp.previous){
-    //   path.push(temp.previous)
-    //   temp = temp.previous;
-    // }
-
-    // for(var i = 0; i < path.length; i++){
-    //   path[i].show(p.color(0,0,255));
-    // }
-
-    // p.noFill();
-    // p.stroke(255);
-    // p.beginShape();
-    // for(var i = 0; i < path.length; i++){
-    //   p.vertex(path[i].i * w + w / 2, path[i].j * h + h / 2);
-    // }
-    // p.endShape();
   };
 };
 
