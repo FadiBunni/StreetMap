@@ -1,8 +1,7 @@
-function Road(firstCoord, name, secondCoord, oneway){
+function Road(firstCoord, name, secondCoord){
 this.firstCoord = firstCoord;
 this.name = name;
 this.secondCoord = secondCoord;
-this.oneway = oneway;
 var FCA = firstCoord.split(" ").map(Number);
 var SCA = secondCoord.split(" ").map(Number);
 

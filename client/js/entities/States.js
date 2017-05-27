@@ -1,5 +1,5 @@
 function States(coordinate){
-	this.intersectionNeighbors = [];
+	this.Neighbors = [];
 	this.parent = undefined
 	this.f = 0;
 	this.g = 0;

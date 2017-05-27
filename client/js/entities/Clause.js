@@ -1,6 +1,6 @@
-function Claus(name,truthValue){
+function Clause(name,truthValue){
 	this.name = name;
 	this.truthValue = truthValue;
 }
 
-module.exports = Claus;
+module.exports = Clause;

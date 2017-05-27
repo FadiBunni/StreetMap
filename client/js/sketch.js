@@ -9,21 +9,21 @@ socket.on('connected','hey');
 var Roads = {};
 var Intersections = {};
 var Clauses = new Array();
-var NotAlpha = new Array();
-var Kb = [];
+// var NotAlpha = new Array();
+// var Kb = [];
 
-Clauses[0] = new Array(new Clause("h", true),new Clause("j", true),new Clause("f", true),new Clause("br", true));
-Clauses[1] = new Array(new Clause("h", true),new Clause("f", true),new Clause("br", true));
-Clauses[2] = new Array(new Clause("co", true),new Clause("cr", true),new Clause("h", true));
-Clauses[3] = new Array(new Clause("to", true),new Clause("bu", true),new Clause("f", true));
-Clauses[4] = new Array(new Clause("e", false),new Clause("f", true));
-NotAlpha[0] = new Array(new Clause("br", false));
+// Clauses[0] = new Array(new Clause("h", true),new Clause("j", true),new Clause("f", true),new Clause("br", true));
+// Clauses[1] = new Array(new Clause("h", true),new Clause("f", true),new Clause("br", true));
+// Clauses[2] = new Array(new Clause("co", true),new Clause("cr", true),new Clause("h", true));
+// Clauses[3] = new Array(new Clause("to", true),new Clause("bu", true),new Clause("f", true));
+// Clauses[4] = new Array(new Clause("e", false),new Clause("f", true));
+// NotAlpha[0] = new Array(new Clause("br", false));
 
-Kb.push(Clauses);
-console.log("clauses: ");
-console.log(Clauses);
-console.log("Kb: ");
-console.log(Kb);
+// Kb.push(Clauses);
+// console.log("clauses: ");
+// console.log(Clauses);
+// console.log("Kb: ");
+// console.log(Kb);
 
 Intersections[Object.keys(Intersections).length] = new Intersection("10 70");
 Intersections[Object.keys(Intersections).length] = new Intersection("20 50");
@@ -110,8 +110,8 @@ var s = function(p) {
     }
 
     //The ending and starting node
-    start = Intersections[1];
-    end = Intersections[7]
+    start = Intersections[2];
+    end = Intersections[8]
 
     openSet.push(start);
     //console.log(openSet);

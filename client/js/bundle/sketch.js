@@ -1,10 +1,10 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-function Claus(name,truthValue){
+function Clause(name,truthValue){
 	this.name = name;
 	this.truthValue = truthValue;
 }
 
-module.exports = Claus;
+module.exports = Clause;
 },{}],2:[function(require,module,exports){
 function Intersection(coordinate){
 	this.coordinate = coordinate;
@@ -19,11 +19,10 @@ function Intersection(coordinate){
 
 module.exports = Intersection;
 },{}],3:[function(require,module,exports){
-function Road(firstCoord, name, secondCoord, oneway){
+function Road(firstCoord, name, secondCoord){
 this.firstCoord = firstCoord;
 this.name = name;
 this.secondCoord = secondCoord;
-this.oneway = oneway;
 var FCA = firstCoord.split(" ").map(Number);
 var SCA = secondCoord.split(" ").map(Number);
 
@@ -44,21 +43,21 @@ socket.on('connected','hey');
 var Roads = {};
 var Intersections = {};
 var Clauses = new Array();
-var NotAlpha = new Array();
-var Kb = [];
+// var NotAlpha = new Array();
+// var Kb = [];
 
-Clauses[0] = new Array(new Clause("h", true),new Clause("j", true),new Clause("f", true),new Clause("br", true));
-Clauses[1] = new Array(new Clause("h", true),new Clause("f", true),new Clause("br", true));
-Clauses[2] = new Array(new Clause("co", true),new Clause("cr", true),new Clause("h", true));
-Clauses[3] = new Array(new Clause("to", true),new Clause("bu", true),new Clause("f", true));
-Clauses[4] = new Array(new Clause("e", false),new Clause("f", true));
-NotAlpha[0] = new Array(new Clause("br", false));
+// Clauses[0] = new Array(new Clause("h", true),new Clause("j", true),new Clause("f", true),new Clause("br", true));
+// Clauses[1] = new Array(new Clause("h", true),new Clause("f", true),new Clause("br", true));
+// Clauses[2] = new Array(new Clause("co", true),new Clause("cr", true),new Clause("h", true));
+// Clauses[3] = new Array(new Clause("to", true),new Clause("bu", true),new Clause("f", true));
+// Clauses[4] = new Array(new Clause("e", false),new Clause("f", true));
+// NotAlpha[0] = new Array(new Clause("br", false));
 
-Kb.push(Clauses);
-console.log("clauses: ");
-console.log(Clauses);
-console.log("Kb: ");
-console.log(Kb);
+// Kb.push(Clauses);
+// console.log("clauses: ");
+// console.log(Clauses);
+// console.log("Kb: ");
+// console.log(Kb);
 
 Intersections[Object.keys(Intersections).length] = new Intersection("10 70");
 Intersections[Object.keys(Intersections).length] = new Intersection("20 50");
@@ -145,8 +144,8 @@ var s = function(p) {
     }
 
     //The ending and starting node
-    start = Intersections[1];
-    end = Intersections[7]
+    start = Intersections[2];
+    end = Intersections[8]
 
     openSet.push(start);
     //console.log(openSet);
