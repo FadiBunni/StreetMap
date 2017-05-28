@@ -1,5 +1,5 @@
 function Clause(l){
-	this.literals = new Array(l);
+	this.literals = [l];
 	this.Neighbors = [];
 	this.parent = undefined
 	this.f = 0;
