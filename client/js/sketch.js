@@ -193,7 +193,7 @@ function centerCanvas(canvas) {
   canvas.position(x, y);
 }
 
-//Handy functions
+//Handy function
 function removeFromArray(arr,elt){
   for(var i = arr.length-1; i >= 0; i--){
     if(arr[i] == elt){
