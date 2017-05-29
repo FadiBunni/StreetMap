@@ -18,54 +18,6 @@ KB[Object.keys(KB).length] = new Clause(new Array(new Literal("b",true),new Lite
 KB[Object.keys(KB).length] = new Clause(new Array(new Literal("c",true),new Literal("f",false)));
 KB[Object.keys(KB).length] = new Clause(new Array(new Literal("f",true)));
 notAlpha = new Clause(new Array(new Literal("d", false)));
-//KB[Object.keys(KB).length] = new Clause(NotAlpha[0]);
-
-// for(var clause in KB){
-//   var c = KB[clause];
-//   console.log(c.literals);
-// }
-// console.log(NotAlpha);
-
-// Intersections[Object.keys(Intersections).length] = new Intersection("10 70");
-// Intersections[Object.keys(Intersections).length] = new Intersection("20 50");
-// Intersections[Object.keys(Intersections).length] = new Intersection("35 35");
-// Intersections[Object.keys(Intersections).length] = new Intersection("35 80");
-// Intersections[Object.keys(Intersections).length] = new Intersection("50 90");
-// Intersections[Object.keys(Intersections).length] = new Intersection("65 100");
-// Intersections[Object.keys(Intersections).length] = new Intersection("70 85");
-// Intersections[Object.keys(Intersections).length] = new Intersection("55 55");
-// Intersections[Object.keys(Intersections).length] = new Intersection("80 70");
-// Intersections[Object.keys(Intersections).length] = new Intersection("60 150");
-// Intersections[Object.keys(Intersections).length] = new Intersection("65 110");
-// Intersections[Object.keys(Intersections).length] = new Intersection("45 70");
-// Intersections[Object.keys(Intersections).length] = new Intersection("25 100");
-// Intersections[Object.keys(Intersections).length] = new Intersection("35 120");
-
-// Roads[Object.keys(Roads).length] = new Road("10 70", "Vestervoldgade", "20 50");
-// Roads[Object.keys(Roads).length] = new Road("20 50", "Vestervoldgade", "10 70");
-// Roads[Object.keys(Roads).length] = new Road("20 50", "Vestervoldgade", "35 35");
-// Roads[Object.keys(Roads).length] = new Road("35 35", "Vestervoldgade", "20 50");
-// Roads[Object.keys(Roads).length] = new Road("10 70", "SktPedersStraede", "35 80");
-// Roads[Object.keys(Roads).length] = new Road("35 80", "SktPedersStraede", "50 90");
-// Roads[Object.keys(Roads).length] = new Road("65 100", "SktPedersStraede", "50 90");
-// Roads[Object.keys(Roads).length] = new Road("20 50", "Studiestraede", "45 70");
-// Roads[Object.keys(Roads).length] = new Road("45 70", "Studiestraede", "70 85");
-// Roads[Object.keys(Roads).length] = new Road("60 150", "Noerregade", "65 110");
-// Roads[Object.keys(Roads).length] = new Road("65 110", "Noerregade", "65 100");
-// Roads[Object.keys(Roads).length] = new Road("65 100", "Noerregade", "70 85");
-// Roads[Object.keys(Roads).length] = new Road("70 85", "Noerregade", "80 70");
-// Roads[Object.keys(Roads).length] = new Road("45 70", "Larsbjoernsstraede", "55 55");
-// Roads[Object.keys(Roads).length] = new Road("45 70", "Larsbjoernsstraede", "35 80");
-// Roads[Object.keys(Roads).length] = new Road("25 100", "TeglgaardsStraede", "35 80");
-// Roads[Object.keys(Roads).length] = new Road("50 90", "LarslejStraede", "35 120");
-// Roads[Object.keys(Roads).length] = new Road("10 70", "Noerrevoldgade", "25 100");
-// Roads[Object.keys(Roads).length] = new Road("25 100", "Noerrevoldgade", "10 70");
-// Roads[Object.keys(Roads).length] = new Road("25 100", "Noerrevoldgade", "35 120");
-// Roads[Object.keys(Roads).length] = new Road("35 120", "Noerrevoldgade", "25 100");
-// Roads[Object.keys(Roads).length] = new Road("35 120", "Noerrevoldgade", "60 150");
-// Roads[Object.keys(Roads).length] = new Road("60 150", "Noerrevoldgade", "35 120");
-// Roads[Object.keys(Roads).length] = new Road("80 70", "Vestergade", "55 55");
-// Roads[Object.keys(Roads).length] = new Road("55 55", "Vestergade", "35 35");
 
 //A* algorithm
   var openSet = [];
@@ -159,7 +111,7 @@ var s = function(p) {
           neighbor.g = tempG;
           neighbor.f = neighbor.g + neighbor.h;
           neighbor.debug =  "F: " + neighbor.f + "<br />G: " + neighbor.g + "<br />H: " + neighbor.h;
-          //console.log(neighbor.debug);
+          console.log(neighbor.debug);
         }
       }
     } else {
@@ -192,14 +144,6 @@ function compareClauses(current,notAlpha){
   var currentLiterals = current.literals;
   var notAlpha = notAlpha.literals;
 
-  // for(var i = 0; i<currentLiterals.length; i++){
-  //   var c = currentLiterals[i];
-  //   console.log(c);
-  // }
-
-  //console.log(currentLiterals);
-
-
   //console.log(notAlpha);
   for(var lit in notAlpha){
     var notl = notAlpha[lit];
@@ -222,10 +166,8 @@ function compareClauses(current,notAlpha){
         }
       }
       //console.log("name: " + notl[i].name + " | truthValue: " + notl[i].truthValue);
-
     }
   }
-
   // console.log(currentLiterals);
   console.log(notAlpha);
 }
