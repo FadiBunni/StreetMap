@@ -50,7 +50,7 @@ var s = function(p) {
     // end = KB[Object.keys(KB)[Object.keys(KB).length - 1]];
     //console.log(start);
     openSet.push(start);
-    //console.log(openSet);
+    //console.log(openSet)
   };
 
   //draw is already a loop, noo need of a while loop.
