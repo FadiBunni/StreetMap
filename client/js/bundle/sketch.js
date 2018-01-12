@@ -1,15 +1,4 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-function Clause(l){
-	this.literals = [l];
-	this.Neighbors = [];
-	this.parent = undefined
-	this.f = 0;
-	this.g = 0;
-	this.h = 0;
-}
-
-module.exports = Clause;
-},{}],2:[function(require,module,exports){
 function Intersection(coordinate){
 	this.coordinate = coordinate;
 	this.intersectionNeighbors = [];
@@ -22,14 +11,7 @@ function Intersection(coordinate){
 }
 
 module.exports = Intersection;
-},{}],3:[function(require,module,exports){
-function Literal(name,truthValue){
-	this.name = name;
-	this.truthValue = truthValue;
-}
-
-module.exports = Literal;
-},{}],4:[function(require,module,exports){
+},{}],2:[function(require,module,exports){
 function Road(firstCoord, name, secondCoord, oneway){
 this.firstCoord = firstCoord;
 this.name = name;
@@ -43,48 +25,16 @@ this.length = Math.sqrt(Math.pow(FCA[0]-SCA[0],2)+Math.pow(FCA[1]-SCA[1],2));
 }
 
 module.exports = Road;
-},{}],5:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 const Intersection = require('./entities/Intersection.js');
 const Road = require('./entities/Road.js');
-const Literal = require('./entities/Literal.js');
-const Clause = require('./entities/Clause.js');
 
 var socket = io();
 
-socket.on('connected','hey');
+socket.on('connected', 'hey');
 
-var Roads = {};
-var Intersections = {};
-var NotAlpha = new Array();
-var KB = {};
-
-KB[Object.keys(KB).length] = new Clause(new Array(new Literal("a",false),new Literal("b",false),new Literal("c",false)));
-KB[Object.keys(KB).length] = new Clause(new Array(new Literal("a",true),new Literal("d",true)));
-KB[Object.keys(KB).length] = new Clause(new Array(new Literal("b",true),new Literal("c",false)));
-KB[Object.keys(KB).length] = new Clause(new Array(new Literal("c",true),new Literal("f",false)));
-KB[Object.keys(KB).length] = new Clause(new Array(new Literal("f",true)));
-NotAlpha[0] = new Array(new Literal("d", false));
-
-
-
-for(var clause in KB){
-  var c = KB[clause];
-  console.log(c.literals);
-}
-console.log(NotAlpha);
-
-// Clause[0] = new Array(new Literal("h", true),new Literal("j", true),new Literal("f", true),new Literal("br", true));
-// Clause[1] = new Array(new Literal("h", true),new Literal("f", true),new Literal("br", true));
-// Clause[2] = new Array(new Literal("co", true),new Literal("cr", true),new Literal("h", true));
-// Clause[3] = new Array(new Literal("to", true),new Literal("bu", true),new Literal("f", true));
-// Clause[4] = new Array(new Literal("e", false),new Literal("f", true));
-// NotAlpha[0] = new Array(new Literal("br", false));
-
-// Kb.push(Clauses);
-// console.log("clauses: ");
-// console.log(Clauses);
-// console.log("Kb: ");
-// console.log(Kb);
+var Roads = {}
+var Intersections = {}
 
 Intersections[Object.keys(Intersections).length] = new Intersection("10 70");
 Intersections[Object.keys(Intersections).length] = new Intersection("20 50");
@@ -168,14 +118,13 @@ var s = function(p) {
     }
 
     //The ending and starting node
-    start = Intersections[2];
-    end = Intersections[8]
+    start = Intersections[12];
+    end = Intersections[5]
 
     openSet.push(start);
     //console.log(openSet);
   };
 
-  //draw is already a loop, noo need of a while loop.
   p.draw = function() {
     if(openSet.length > 0){
       var lowestIndex = 0;
@@ -189,37 +138,37 @@ var s = function(p) {
       var current = openSet[lowestIndex];
       //console.log(end);
       if(current == end){
-        // var curr = current;
-        // var ret = [];
-        // while(curr.parent){
-        //   ret.push(curr);
-        //   curr = curr.parent;
-        // }
-        // p.noLoop();
-        // console.log("SLUT!");
-        // for(var i = 0; i < ret.length; i++){
-        //   var r = ret[i];
-        //   console.log(r.coordinate);
-        //   if(i == ret.length-1){
-        //     for(var road in Roads) {
-        //       var ro = Roads[road];
-        //       if(ro.firstCoord == r.coordinate && ro.secondCoord == start.coordinate) {
-        //         console.log(ro.name);
-        //       }
-        //     }
-        //   }else {
-        //     var r2 = ret[i+1];
-        //     for(var road in Roads) {
-        //       var ro = Roads[road];
-        //       if(ro.firstCoord == r2.coordinate && ro.secondCoord == r.coordinate) {
-        //         console.log(ro.name);
-        //       }
-        //     }
-        //   }
+        var curr = current;
+        var ret = [];
+        while(curr.parent){
+          ret.push(curr);
+          curr = curr.parent;
+        }
+        p.noLoop();
+        console.log("SLUT!");
+        for(var i = 0; i < ret.length; i++){
+          var r = ret[i];
+          console.log(r.coordinate);
+          if(i == ret.length-1){
+            for(var road in Roads) {
+              var ro = Roads[road];
+              if(ro.firstCoord == r.coordinate && ro.secondCoord == start.coordinate) {
+                console.log(ro.name);
+              }
+            }
+          }else {
+            var r2 = ret[i+1];
+            for(var road in Roads) {
+              var ro = Roads[road];
+              if(ro.firstCoord == r2.coordinate && ro.secondCoord == r.coordinate) {
+                console.log(ro.name);
+              }
+            }
+          }
 
-        // }
-        // console.log(start.coordinate)
-        // console.log("START!");
+        }
+        console.log(start.coordinate)
+        console.log("START!");
       }
 
       removeFromArray(openSet,current);
@@ -272,10 +221,11 @@ function centerCanvas(canvas) {
   canvas.position(x, y);
 }
 
-//Handy functions
+//Handy function
 function removeFromArray(arr,elt){
   for(var i = arr.length-1; i >= 0; i--){
     if(arr[i] == elt){
+      //console.log(elt)
       arr.splice(i,1);
     }
   }
@@ -296,4 +246,4 @@ function distBetween(neighbor,current){
     //console.log(myp5.dist(neighborCoord[0],neighborCoord[1],currentCoord[0],currentCoord[1]));
     return myp5.dist(neighborCoord[0],neighborCoord[1],currentCoord[0],currentCoord[1]);
 }
-},{"./entities/Clause.js":1,"./entities/Intersection.js":2,"./entities/Literal.js":3,"./entities/Road.js":4}]},{},[5]);
+},{"./entities/Intersection.js":1,"./entities/Road.js":2}]},{},[3]);
